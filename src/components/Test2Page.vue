@@ -1,5 +1,6 @@
 <template>
   <div style="height: 100%">
+    <button @click="changeHandler">Change</button>
     <div class="container">
       <AgGridVue
         style="width: 1000px; height: 600px"
@@ -27,12 +28,15 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { GridOptions } from 'ag-grid-community';
 import { GridApi } from 'ag-grid-community';
+import { ref } from 'vue';
 
 let gridApi: GridApi | null = null;
 
+const _header = ref('명세일자' as string);
+
 const columnDefs = [
   {
-    headerName: '명세일자',
+    headerName: _header.value,
     field: 'TRANS_DATE',
     sortable: true,
   },
@@ -42,11 +46,11 @@ const columnDefs = [
   { headerName: '창고이름', field: 'STOCK_NM' },
 ];
 
-const rowData = dummy_data;
-
 const onGridReady = (params: any) => {
   gridApi = params.api;
 };
+
+const rowData = dummy_data;
 
 const gridOptions: GridOptions = {
   columnDefs: columnDefs,
@@ -61,6 +65,12 @@ function onPageSizeChanged(e: Event) {
 
   gridApi?.paginationSetPageSize(Number(target.value));
 }
+
+const changeHandler = async () => {
+  _header.value = '테스트';
+
+  gridApi?.refreshHeader();
+};
 </script>
 
 <style scoped>

@@ -68,12 +68,11 @@ const gridOptions: GridOptions = {
   suppressRowTransform: true,
 };
 
-console.log(countByDate);
-
 function rowSpan(params: RowSpanParams) {
   const data = params.data.TRANS_DATE;
+  console.log(countByDate);
 
-  console.log(params.node?.rowIndex);
+  console.log(params);
 
   // console.log(data);
   // console.log(countByDate[data]);
